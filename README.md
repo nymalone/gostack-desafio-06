@@ -13,8 +13,7 @@ O objetivo desse desafio é continuar desenvolvendo a aplicação de gestão de 
 ### ...
 
 ## :wrench: Funcionalidades da aplicação
-
-
+...
 ## :warning: Especificação dos testes
 ...
 
