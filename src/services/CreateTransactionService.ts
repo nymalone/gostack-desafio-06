@@ -1,6 +1,5 @@
-// import AppError from '../errors/AppError';
-
 import { getCustomRepository, getRepository } from 'typeorm';
+import AppError from '../errors/AppError';
 
 import TransactionsRepository from '../repositories/TransactionsRepository';
 
@@ -23,6 +22,12 @@ class CreateTransactionService {
     // funcionalidade de adicionar ao banco de dados essa informação
     const transactionsRepository = getCustomRepository(TransactionsRepository);
     const categoryRepository = getRepository(Category);
+
+    // should not be able to create outcome transaction without a valid balance
+    const { total } = await transactionsRepository.getBalance();
+    if (type === 'outcome' && total < value) {
+      throw new AppError('You do not have enough balance! :( ');
+    }
 
     // verificar se a categoria ja existe
     let transactionCategory = await categoryRepository.findOne({
